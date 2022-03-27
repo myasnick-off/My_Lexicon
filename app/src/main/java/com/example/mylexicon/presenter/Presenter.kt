@@ -1,7 +1,7 @@
 package com.example.mylexicon.presenter
 
 import com.example.mylexicon.model.AppState
-import com.example.mylexicon.ui.View
+import com.example.mylexicon.ui.base.View
 
 interface Presenter<T : AppState, V : View> {
 

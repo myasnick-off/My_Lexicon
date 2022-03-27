@@ -1,4 +1,4 @@
-package com.example.mylexicon.ui
+package com.example.mylexicon.ui.base
 
 import com.example.mylexicon.model.AppState
 

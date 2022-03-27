@@ -1,4 +1,4 @@
-package com.example.mylexicon.ui
+package com.example.mylexicon.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

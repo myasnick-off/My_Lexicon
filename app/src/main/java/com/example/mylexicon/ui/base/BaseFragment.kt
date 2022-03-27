@@ -1,4 +1,4 @@
-package com.example.mylexicon.ui
+package com.example.mylexicon.ui.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
