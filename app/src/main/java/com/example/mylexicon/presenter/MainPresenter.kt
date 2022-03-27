@@ -1,7 +1,7 @@
 package com.example.mylexicon.presenter
 
-import com.example.mylexicon.datasource.LocalDataSource
-import com.example.mylexicon.datasource.RemoteDataSource
+import com.example.mylexicon.datasource.db.LocalDataSource
+import com.example.mylexicon.datasource.network.RemoteDataSource
 import com.example.mylexicon.interactor.MainInteractor
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.repository.Repository
