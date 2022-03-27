@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //Margins
+    <dimen name="hairline">1px</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_3">3dp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_7">7dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_17">17dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_25">25dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_45">45dp</dimen>
+
+    //Text size
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_25">25sp</dimen>
+
+    //Corner radius
+    <dimen name="corner_radius_10">10dp</dimen>
+</resources>
