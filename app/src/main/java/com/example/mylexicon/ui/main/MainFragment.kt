@@ -14,6 +14,7 @@ import com.example.mylexicon.presenter.IPresenter
 import com.example.mylexicon.presenter.MainPresenter
 import com.example.mylexicon.ui.base.BaseFragment
 import com.example.mylexicon.ui.base.View
+import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.main.adapter.ItemClickListener
 import com.example.mylexicon.ui.main.adapter.MainAdapter
 
@@ -52,7 +53,7 @@ class MainFragment : BaseFragment<AppState>() {
         return MainPresenter()
     }
 
-    override fun renderData(state: AppState) = with(binding) {
+    override fun renderData(state: AppState) {
         when (state) {
             is AppState.Loading -> showLoading()
             is AppState.Success -> showResult(state.data)
@@ -63,7 +64,14 @@ class MainFragment : BaseFragment<AppState>() {
     private fun initView() = with(binding) {
         mainRecyclerview.adapter = adapter
         searchFab.setOnClickListener {
-//            TODO("Not yet implemented")
+            val searchDialogFragment = SearchDialogFragment.newInstance()
+            searchDialogFragment.setOnSearchClickListener(object :
+                    SearchDialogFragment.OnSearchClickListener {
+                override fun onClick(searchWord: String) {
+                    presenter.getData(searchWord, true)
+                }
+            })
+            searchDialogFragment.show(parentFragmentManager, "")
         }
     }
 
