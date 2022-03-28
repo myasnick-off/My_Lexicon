@@ -58,11 +58,11 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
 
     private fun initView() = with(binding) {
         searchEditText.addTextChangedListener(textWatcher)
-        searchButtonTextview.setOnClickListener { onSearchButtonClickListener }
+        searchButtonTextview.setOnClickListener(onSearchButtonClickListener)
         addOnClearClickListener()
     }
 
-    internal fun setOnSearchClickListener(listener: OnSearchClickListener) {
+    fun setOnSearchClickListener(listener: OnSearchClickListener) {
         onSearchClickListener = listener
     }
 

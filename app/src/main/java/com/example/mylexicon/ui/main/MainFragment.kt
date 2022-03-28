@@ -2,17 +2,15 @@ package com.example.mylexicon.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentMainBinding
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
-import com.example.mylexicon.presenter.IPresenter
-import com.example.mylexicon.presenter.MainPresenter
 import com.example.mylexicon.ui.base.BaseFragment
+import com.example.mylexicon.ui.base.IPresenter
 import com.example.mylexicon.ui.base.View
 import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.main.adapter.ItemClickListener
@@ -93,21 +91,21 @@ class MainFragment : BaseFragment<AppState>() {
     }
 
     private fun showSuccess() = with(binding) {
-        successBlock.visibility = VISIBLE
-        loadingBlock.visibility = GONE
-        errorBlock.visibility = GONE
+        successBlock.isVisible = true
+        loadingBlock.isVisible = false
+        errorBlock.isVisible = false
     }
 
     private fun showLoading() = with(binding) {
-        successBlock.visibility = GONE
-        loadingBlock.visibility = VISIBLE
-        errorBlock.visibility = GONE
+        successBlock.isVisible = false
+        loadingBlock.isVisible = true
+        errorBlock.isVisible = false
     }
 
     private fun showError() = with(binding) {
-        successBlock.visibility = GONE
-        loadingBlock.visibility = GONE
-        errorBlock.visibility = VISIBLE
+        successBlock.isVisible = false
+        loadingBlock.isVisible = false
+        errorBlock.isVisible = true
     }
 
     companion object {

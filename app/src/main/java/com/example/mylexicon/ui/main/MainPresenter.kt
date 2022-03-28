@@ -1,20 +1,22 @@
-package com.example.mylexicon.presenter
+package com.example.mylexicon.ui.main
 
 import com.example.mylexicon.datasource.db.LocalDataSource
 import com.example.mylexicon.datasource.network.RemoteDataSource
 import com.example.mylexicon.interactor.MainInteractor
 import com.example.mylexicon.model.AppState
+import com.example.mylexicon.ui.base.IPresenter
 import com.example.mylexicon.repository.Repository
 import com.example.mylexicon.ui.base.View
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class MainPresenter<T:AppState, V:View>(
+class MainPresenter<T : AppState, V : View>(
     private val interactor: MainInteractor =
         MainInteractor(Repository(RemoteDataSource(), LocalDataSource())),
     protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
-): IPresenter<T, V> {
+) : IPresenter<T, V> {
 
     private var mainView: V? = null
 
@@ -34,15 +36,23 @@ class MainPresenter<T:AppState, V:View>(
     override fun getData(word: String, isOnline: Boolean) {
         compositeDisposable.add(
             interactor.getData(word, isOnline)
+                .doOnSubscribe { mainView?.renderData(AppState.Loading(null)) }
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .doOnSubscribe{ mainView?.renderData(AppState.Loading(null)) }
-                .subscribeWith(getObserver())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        mainView?.renderData(it)
+                    },
+                    {
+                        mainView?.renderData(AppState.Error(it))
+                    }
+                )
+//                .subscribeWith(getObserver())
         )
     }
 
-    private fun getObserver() : DisposableObserver<AppState> {
-        return object :DisposableObserver<AppState>() {
+    private fun getObserver(): DisposableObserver<AppState> {
+        return object : DisposableObserver<AppState>() {
 
             override fun onNext(state: AppState) {
                 mainView?.renderData(state)
