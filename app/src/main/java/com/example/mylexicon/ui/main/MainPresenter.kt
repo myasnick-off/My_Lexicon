@@ -4,12 +4,11 @@ import com.example.mylexicon.datasource.db.LocalDataSource
 import com.example.mylexicon.datasource.network.RemoteDataSource
 import com.example.mylexicon.interactor.MainInteractor
 import com.example.mylexicon.model.AppState
-import com.example.mylexicon.ui.base.IPresenter
 import com.example.mylexicon.repository.Repository
+import com.example.mylexicon.ui.base.IPresenter
 import com.example.mylexicon.ui.base.View
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainPresenter<T : AppState, V : View>(
@@ -36,7 +35,8 @@ class MainPresenter<T : AppState, V : View>(
     override fun getData(word: String, isOnline: Boolean) {
         compositeDisposable.add(
             interactor.getData(word, isOnline)
-                .doOnSubscribe { mainView?.renderData(AppState.Loading(null)) }
+                .doOnSubscribe {
+                    mainView?.renderData(AppState.Loading) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -47,23 +47,7 @@ class MainPresenter<T : AppState, V : View>(
                         mainView?.renderData(AppState.Error(it))
                     }
                 )
-//                .subscribeWith(getObserver())
         )
-    }
-
-    private fun getObserver(): DisposableObserver<AppState> {
-        return object : DisposableObserver<AppState>() {
-
-            override fun onNext(state: AppState) {
-                mainView?.renderData(state)
-            }
-
-            override fun onError(e: Throwable) {
-                mainView?.renderData(AppState.Error(e))
-            }
-
-            override fun onComplete() {}
-        }
     }
 
 }

@@ -2,9 +2,10 @@ package com.example.mylexicon.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentMainBinding
 import com.example.mylexicon.model.AppState
@@ -91,21 +92,21 @@ class MainFragment : BaseFragment<AppState>() {
     }
 
     private fun showSuccess() = with(binding) {
-        successBlock.isVisible = true
-        loadingBlock.isVisible = false
-        errorBlock.isVisible = false
+        successBlock.visibility = VISIBLE
+        loadingBlock.visibility = GONE
+        errorBlock.visibility = GONE
     }
 
     private fun showLoading() = with(binding) {
-        successBlock.isVisible = false
-        loadingBlock.isVisible = true
-        errorBlock.isVisible = false
+        successBlock.visibility = GONE
+        loadingBlock.visibility = VISIBLE
+        errorBlock.visibility = GONE
     }
 
     private fun showError() = with(binding) {
-        successBlock.isVisible = false
-        loadingBlock.isVisible = false
-        errorBlock.isVisible = true
+        successBlock.visibility = GONE
+        loadingBlock.visibility = GONE
+        errorBlock.visibility = VISIBLE
     }
 
     companion object {

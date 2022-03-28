@@ -3,7 +3,6 @@ package com.example.mylexicon.interactor
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
 import com.example.mylexicon.repository.IRepository
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 class MainInteractor(
@@ -12,6 +11,7 @@ class MainInteractor(
 
     override fun getData(word: String, fromRemoteSource: Boolean): Single<AppState> {
         return repository.getData(word, fromRemoteSource)
-            .map { words -> AppState.Success(words) }
+            .map { words ->
+                AppState.Success(words) }
     }
 }

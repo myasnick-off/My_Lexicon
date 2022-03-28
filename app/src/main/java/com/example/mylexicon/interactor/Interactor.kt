@@ -1,6 +1,5 @@
 package com.example.mylexicon.interactor
 
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 

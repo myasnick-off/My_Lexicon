@@ -2,9 +2,6 @@ package com.example.mylexicon.datasource.network
 
 import com.example.mylexicon.datasource.DataSource
 import com.example.mylexicon.model.Word
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -18,7 +15,7 @@ class RemoteDataSource : DataSource<List<Word>> {
     private val apiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(provideGson()))
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .client(createOkHttpClient(BaseInterceptor.interceptor))
             .build()
@@ -34,12 +31,6 @@ class RemoteDataSource : DataSource<List<Word>> {
             .addInterceptor(interceptor)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
-    }
-
-    private fun provideGson(): Gson {
-        return GsonBuilder()
-            .excludeFieldsWithoutExposeAnnotation()
-            .create()
     }
 
     companion object {
