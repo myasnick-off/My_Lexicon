@@ -16,23 +16,13 @@ abstract class BaseFragment<T: AppState>: Fragment(), BaseView {
         presenter = createPresenter()
     }
 
-    /*override fun onStart() {
+    override fun onStart() {
         super.onStart()
         presenter.attachView(this)
-    }*/
-
-    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        presenter.attachView(this)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.detachView(this)
-    }
-
-   /* override fun onStop() {
+    override fun onStop() {
         super.onStop()
         presenter.detachView(this)
-    }*/
+    }
 }

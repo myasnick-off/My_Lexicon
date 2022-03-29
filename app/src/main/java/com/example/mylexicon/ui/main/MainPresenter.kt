@@ -35,10 +35,11 @@ class MainPresenter<T : AppState, V : BaseView>(
     override fun getData(word: String, isOnline: Boolean) {
         compositeDisposable.add(
             interactor.getData(word, isOnline)
-                .doOnSubscribe {
-                    mainView?.renderData(AppState.Loading) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    mainView?.renderData(AppState.Loading)
+                }
                 .subscribe(
                     {
                         mainView?.renderData(it)

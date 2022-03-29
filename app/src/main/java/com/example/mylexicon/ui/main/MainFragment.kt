@@ -65,10 +65,8 @@ class MainFragment : BaseFragment<AppState>() {
         searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
             searchDialogFragment.setOnSearchClickListener(object :
-                    SearchDialogFragment.OnSearchClickListener {
-                override fun onClick(searchWord: String) {
-                    presenter.getData(searchWord, true)
-                }
+                SearchDialogFragment.OnSearchClickListener {
+                override fun onClick(searchWord: String) { presenter.getData(searchWord, true) }
             })
             searchDialogFragment.show(parentFragmentManager, "")
         }
