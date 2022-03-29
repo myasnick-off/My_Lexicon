@@ -1,7 +1,9 @@
 package com.example.mylexicon.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Word(
-    val id: Int,
-    val text: String?,
-    val meanings: List<Meaning>?
+    @SerializedName("id") val id: Int,
+    @SerializedName("text") val text: String?,
+    @SerializedName("meanings") val meanings: List<Meaning2>?
 )

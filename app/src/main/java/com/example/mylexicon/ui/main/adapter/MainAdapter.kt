@@ -25,7 +25,7 @@ class MainAdapter(
         ): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Word) = with(binding) {
             headerTextview.text = item.text
-            descriptionTextview.text = item.meanings?.first()?.transcription.orEmpty()
+            descriptionTextview.text = item.meanings?.first()?.translation?.text.orEmpty()
             itemView.setOnClickListener { listener.onItemClick(item) }
         }
     }

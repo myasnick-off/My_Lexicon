@@ -2,7 +2,7 @@ package com.example.mylexicon.ui.base
 
 import com.example.mylexicon.model.AppState
 
-interface IPresenter<T : AppState, V : View> {
+interface IPresenter<T : AppState, V : BaseView> {
 
     fun attachView(view: V)
     fun detachView(view: V)

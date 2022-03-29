@@ -2,8 +2,6 @@ package com.example.mylexicon.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.mylexicon.R
@@ -12,10 +10,12 @@ import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
 import com.example.mylexicon.ui.base.BaseFragment
 import com.example.mylexicon.ui.base.IPresenter
-import com.example.mylexicon.ui.base.View
+import com.example.mylexicon.ui.base.BaseView
 import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.main.adapter.ItemClickListener
 import com.example.mylexicon.ui.main.adapter.MainAdapter
+import com.example.mylexicon.utils.hide
+import com.example.mylexicon.utils.show
 
 class MainFragment : BaseFragment<AppState>() {
 
@@ -48,13 +48,13 @@ class MainFragment : BaseFragment<AppState>() {
         _binding = null
     }
 
-    override fun createPresenter(): IPresenter<AppState, View> {
+    override fun createPresenter(): IPresenter<AppState, BaseView> {
         return MainPresenter()
     }
 
     override fun renderData(state: AppState) {
         when (state) {
-            is AppState.Loading -> showLoading()
+            AppState.Loading -> showLoading()
             is AppState.Success -> showResult(state.data)
             is AppState.Error -> showErrorScreen(state.error.message)
         }
@@ -83,30 +83,30 @@ class MainFragment : BaseFragment<AppState>() {
         }
     }
 
-    private fun showErrorScreen(error: String?) = with(binding) {
+    private fun showErrorScreen(error: String?) {
         showError()
-        errorTextview.text = error ?: getString(R.string.loading_error)
-        reloadButton.setOnClickListener {
+        binding.errorTextview.text = error ?: getString(R.string.loading_error)
+        binding.reloadButton.setOnClickListener {
             presenter.getData("hi", true)
         }
     }
 
-    private fun showSuccess() = with(binding) {
-        successBlock.visibility = VISIBLE
-        loadingBlock.visibility = GONE
-        errorBlock.visibility = GONE
+    private fun showSuccess() {
+        binding.successBlock.show()
+        binding.loadingBlock.hide()
+        binding.errorBlock.hide()
     }
 
-    private fun showLoading() = with(binding) {
-        successBlock.visibility = GONE
-        loadingBlock.visibility = VISIBLE
-        errorBlock.visibility = GONE
+    private fun showLoading() {
+        binding.successBlock.hide()
+        binding.loadingBlock.show()
+        binding.errorBlock.hide()
     }
 
-    private fun showError() = with(binding) {
-        successBlock.visibility = GONE
-        loadingBlock.visibility = GONE
-        errorBlock.visibility = VISIBLE
+    private fun showError() {
+        binding.successBlock.hide()
+        binding.loadingBlock.hide()
+        binding.errorBlock.show()
     }
 
     companion object {

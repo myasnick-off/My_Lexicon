@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.mylexicon.model.AppState
 
-abstract class BaseFragment<T: AppState>: Fragment(), View {
+abstract class BaseFragment<T: AppState>: Fragment(), BaseView {
 
-    protected lateinit var presenter: IPresenter<T, View>
+    protected lateinit var presenter: IPresenter<T, BaseView>
 
-    protected abstract fun createPresenter(): IPresenter<T, View>
+    protected abstract fun createPresenter(): IPresenter<T, BaseView>
     abstract override fun renderData(state: AppState)
 
     override fun onCreate(savedInstanceState: Bundle?) {

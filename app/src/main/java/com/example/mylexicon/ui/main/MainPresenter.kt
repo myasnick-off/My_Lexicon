@@ -6,12 +6,12 @@ import com.example.mylexicon.interactor.MainInteractor
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.repository.Repository
 import com.example.mylexicon.ui.base.IPresenter
-import com.example.mylexicon.ui.base.View
+import com.example.mylexicon.ui.base.BaseView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class MainPresenter<T : AppState, V : View>(
+class MainPresenter<T : AppState, V : BaseView>(
     private val interactor: MainInteractor =
         MainInteractor(Repository(RemoteDataSource(), LocalDataSource())),
     protected val compositeDisposable: CompositeDisposable = CompositeDisposable()

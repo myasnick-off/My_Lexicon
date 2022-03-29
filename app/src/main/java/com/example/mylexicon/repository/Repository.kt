@@ -10,6 +10,6 @@ class Repository(
 ): IRepository<List<Word>> {
 
     override fun getData(word: String, fromRemote: Boolean): Single<List<Word>> {
-        return if(fromRemote) remoteSource.getData(word) else {localSource.getData(word)}
+        return if(fromRemote) remoteSource.getData(word) else localSource.getData(word)
     }
 }

@@ -15,8 +15,8 @@ class RemoteDataSource : DataSource<List<Word>> {
     private val apiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .client(createOkHttpClient(BaseInterceptor.interceptor))
             .build()
             .create(ApiService::class.java)
