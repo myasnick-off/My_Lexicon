@@ -4,8 +4,9 @@ import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
 import com.example.mylexicon.repository.IRepository
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class MainInteractor(
+class MainInteractor @Inject constructor(
     private val repository: IRepository<List<Word>>
 ): Interactor<AppState> {
 

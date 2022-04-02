@@ -62,11 +62,11 @@ class MainFragment : BaseFragment<AppState>() {
         searchFab.setOnClickListener { showSearchDialog() }
     }
 
-    override fun renderData(state: AppState) {
-        when (state) {
+    override fun renderData(appState: AppState) {
+        when (appState) {
             AppState.Loading -> showLoading()
-            is AppState.Success -> showResult(state.data)
-            is AppState.Error -> showErrorScreen(state.error.message)
+            is AppState.Success -> showResult(appState.data)
+            is AppState.Error -> showErrorScreen(appState.error.message)
         }
     }
 

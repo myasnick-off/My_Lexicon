@@ -10,30 +10,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RemoteDataSource : DataSource<List<Word>> {
-
-    private val apiService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(createOkHttpClient(BaseInterceptor.interceptor))
-            .build()
-            .create(ApiService::class.java)
-    }
+class RemoteDataSource(private val apiService: ApiService) : DataSource<List<Word>> {
 
     override fun getData(word: String): Single<List<Word>> {
         return apiService.search(word)
-    }
-
-    private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build()
-    }
-
-    companion object {
-        private const val BASE_URL = "https://dictionary.skyeng.ru/api/public/v1/"
     }
 }
