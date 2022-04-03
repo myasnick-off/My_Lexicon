@@ -12,6 +12,7 @@ import com.example.mylexicon.databinding.FragmentSearchDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SearchDialogFragment : BottomSheetDialogFragment() {
+
     private var _binding: FragmentSearchDialogBinding? = null
     private val binding get() = _binding!!
     private var onSearchClickListener: OnSearchClickListener? = null
@@ -33,7 +34,6 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
                     clearTextImageview.visibility = GONE
                 }
             }
-
         override fun afterTextChanged(s: Editable?) {}
     }
 
@@ -52,6 +52,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     }
 
     override fun onDestroyView() {
+        _binding = null
         onSearchClickListener = null
         super.onDestroyView()
     }
@@ -59,18 +60,16 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     private fun initView() = with(binding) {
         searchEditText.addTextChangedListener(textWatcher)
         searchButtonTextview.setOnClickListener(onSearchButtonClickListener)
-        addOnClearClickListener()
+        clearTextImageview.setOnClickListener { clearSearch() }
     }
 
     fun setOnSearchClickListener(listener: OnSearchClickListener) {
         onSearchClickListener = listener
     }
 
-    private fun addOnClearClickListener() {
-        binding.clearTextImageview.setOnClickListener {
-            binding.searchEditText.setText("")
-            binding.searchButtonTextview.isEnabled = false
-        }
+    private fun clearSearch() {
+        binding.searchEditText.setText("")
+        binding.searchButtonTextview.isEnabled = false
     }
 
     interface OnSearchClickListener {

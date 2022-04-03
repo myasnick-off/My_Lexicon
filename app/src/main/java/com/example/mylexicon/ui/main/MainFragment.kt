@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentMainBinding
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
 import com.example.mylexicon.ui.base.BaseFragment
-import com.example.mylexicon.ui.base.IPresenter
-import com.example.mylexicon.ui.base.BaseView
+import com.example.mylexicon.ui.base.BaseViewModel
 import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.main.adapter.ItemClickListener
 import com.example.mylexicon.ui.main.adapter.MainAdapter
@@ -18,6 +18,10 @@ import com.example.mylexicon.utils.hide
 import com.example.mylexicon.utils.show
 
 class MainFragment : BaseFragment<AppState>() {
+
+    override val viewModel: BaseViewModel<AppState> by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
@@ -40,6 +44,7 @@ class MainFragment : BaseFragment<AppState>() {
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
         initView()
     }
 
@@ -48,28 +53,32 @@ class MainFragment : BaseFragment<AppState>() {
         _binding = null
     }
 
-    override fun createPresenter(): IPresenter<AppState, BaseView> {
-        return MainPresenter()
-    }
-
-    override fun renderData(state: AppState) {
-        when (state) {
-            AppState.Loading -> showLoading()
-            is AppState.Success -> showResult(state.data)
-            is AppState.Error -> showErrorScreen(state.error.message)
-        }
+    private fun initData() {
+        viewModel.liveData.observe( viewLifecycleOwner, { renderData(it) })
     }
 
     private fun initView() = with(binding) {
         mainRecyclerview.adapter = adapter
-        searchFab.setOnClickListener {
-            val searchDialogFragment = SearchDialogFragment.newInstance()
-            searchDialogFragment.setOnSearchClickListener(object :
-                SearchDialogFragment.OnSearchClickListener {
-                override fun onClick(searchWord: String) { presenter.getData(searchWord, true) }
-            })
-            searchDialogFragment.show(parentFragmentManager, "")
+        searchFab.setOnClickListener { showSearchDialog() }
+    }
+
+    override fun renderData(appState: AppState) {
+        when (appState) {
+            AppState.Loading -> showLoading()
+            is AppState.Success -> showResult(appState.data)
+            is AppState.Error -> showErrorScreen(appState.error.message)
         }
+    }
+
+    private fun showSearchDialog() {
+        SearchDialogFragment.newInstance().apply {
+            setOnSearchClickListener(object :
+                SearchDialogFragment.OnSearchClickListener {
+                override fun onClick(searchWord: String) {
+                    viewModel.getData(searchWord, true)
+                }
+            })
+        }.show(parentFragmentManager, "")
     }
 
     private fun showResult(words: List<Word>?) {
@@ -85,7 +94,7 @@ class MainFragment : BaseFragment<AppState>() {
         showError()
         binding.errorTextview.text = error ?: getString(R.string.loading_error)
         binding.reloadButton.setOnClickListener {
-            presenter.getData("hi", true)
+            viewModel.getData("hi", true)
         }
     }
 
