@@ -4,24 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentMainBinding
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
 import com.example.mylexicon.ui.base.BaseFragment
-import com.example.mylexicon.ui.base.BaseViewModel
 import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.main.adapter.ItemClickListener
 import com.example.mylexicon.ui.main.adapter.MainAdapter
 import com.example.mylexicon.utils.hide
 import com.example.mylexicon.utils.show
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment<AppState>() {
 
-    override val viewModel: BaseViewModel<AppState> by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
+    override val viewModel: MainViewModel by viewModel()
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding

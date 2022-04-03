@@ -1,21 +1,12 @@
 package com.example.mylexicon.ui.main
 
-import com.example.mylexicon.App
-import com.example.mylexicon.interactor.MainInteractor
+import com.example.mylexicon.interactor.Interactor
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.ui.base.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import javax.inject.Inject
 
-class MainViewModel: BaseViewModel<AppState>() {
-
-    @Inject
-    lateinit var interactor: MainInteractor
-
-    init {
-        App.appInstance.appComponent.inject(this)
-    }
+class MainViewModel(private val interactor: Interactor<AppState>): BaseViewModel<AppState>() {
 
     override fun getData(word: String, isOnline: Boolean) {
         compositeDisposable.add(
