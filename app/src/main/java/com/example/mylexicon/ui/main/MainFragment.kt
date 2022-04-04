@@ -91,7 +91,7 @@ class MainFragment : BaseFragment<AppState>() {
         showError()
         binding.errorTextview.text = error ?: getString(R.string.loading_error)
         binding.reloadButton.setOnClickListener {
-            viewModel.getData("hi", true)
+            viewModel.getData(getString(R.string.default_word), true)
         }
     }
 

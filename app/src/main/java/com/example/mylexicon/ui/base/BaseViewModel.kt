@@ -6,10 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.mylexicon.model.AppState
 import kotlinx.coroutines.*
 
-abstract class BaseViewModel<T : AppState>(
-    protected val mutableLiveData: MutableLiveData<T> = MutableLiveData(),
-) : ViewModel() {
+abstract class BaseViewModel<T : AppState> : ViewModel() {
 
+    protected val mutableLiveData: MutableLiveData<T> = MutableLiveData()
     val liveData: LiveData<T>
         get() = mutableLiveData
 

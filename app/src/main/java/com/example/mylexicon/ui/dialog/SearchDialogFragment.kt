@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentSearchDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -68,7 +69,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun clearSearch() {
-        binding.searchEditText.setText("")
+        binding.searchEditText.setText(getString(R.string.empty_string))
         binding.searchButtonTextview.isEnabled = false
     }
 
