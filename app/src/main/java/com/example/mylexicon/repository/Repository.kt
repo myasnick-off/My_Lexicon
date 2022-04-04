@@ -9,7 +9,7 @@ class Repository(
     private val localSource: DataSource<List<Word>>
 ): IRepository<List<Word>> {
 
-    override fun getData(word: String, fromRemote: Boolean): Single<List<Word>> {
+    override suspend fun getData(word: String, fromRemote: Boolean): List<Word> {
         return if(fromRemote) remoteSource.getData(word) else localSource.getData(word)
     }
 }
