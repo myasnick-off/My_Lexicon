@@ -5,4 +5,6 @@
     <string name="x">X</string>
     <string name="loading_error">Loading Error!</string>
     <string name="reload">Try again!</string>
+    <string name="default_word">hi</string>
+    <string name="empty_string" />
 </resources>

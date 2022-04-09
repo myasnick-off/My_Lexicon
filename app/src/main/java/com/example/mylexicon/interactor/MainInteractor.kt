@@ -3,16 +3,22 @@ package com.example.mylexicon.interactor
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
 import com.example.mylexicon.repository.IRepository
-import io.reactivex.rxjava3.core.Single
-import javax.inject.Inject
 
-class MainInteractor @Inject constructor(
-    private val repository: IRepository<List<Word>>
-): Interactor<AppState> {
+class MainInteractor(private val repository: IRepository<List<Word>>) : Interactor<AppState> {
 
-    override fun getData(word: String, fromRemoteSource: Boolean): Single<AppState> {
-        return repository.getData(word, fromRemoteSource)
-            .map { words ->
-                AppState.Success(words) }
+    override suspend fun getData(word: String, fromRemoteSource: Boolean): AppState {
+        return try {
+            val data = repository.getData(word, fromRemoteSource)
+            if (data.isEmpty()) {
+                return AppState.Error(Throwable(EMPTY_DATA_MESSAGE))
+            }
+            AppState.Success(data)
+        } catch (ex: Exception) {
+            AppState.Error(ex)
+        }
+    }
+
+    companion object {
+        private const val EMPTY_DATA_MESSAGE = "Nothing found!"
     }
 }
