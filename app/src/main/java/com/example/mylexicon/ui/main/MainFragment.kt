@@ -9,6 +9,7 @@ import com.example.mylexicon.databinding.FragmentMainBinding
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
 import com.example.mylexicon.ui.base.BaseFragment
+import com.example.mylexicon.ui.details.DetailsFragment
 import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.main.adapter.ItemClickListener
 import com.example.mylexicon.ui.main.adapter.MainAdapter
@@ -26,7 +27,10 @@ class MainFragment : BaseFragment<AppState>() {
 
     private val adapter = MainAdapter(object : ItemClickListener {
         override fun onItemClick(item: Word) {
-            Toast.makeText(requireContext(), item.text, Toast.LENGTH_SHORT).show()
+            parentFragmentManager.beginTransaction()
+                .add(R.id.main_container, DetailsFragment.newInstance(word = item))
+                .addToBackStack("")
+                .commit()
         }
     })
 
@@ -51,7 +55,7 @@ class MainFragment : BaseFragment<AppState>() {
     }
 
     private fun initData() {
-        viewModel.liveData.observe( viewLifecycleOwner, { renderData(it) })
+        viewModel.liveData.observe( viewLifecycleOwner, ::renderData)
     }
 
     private fun initView() = with(binding) {
