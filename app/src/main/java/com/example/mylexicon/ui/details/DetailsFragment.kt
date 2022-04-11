@@ -5,6 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentDetailsBinding
 import com.example.mylexicon.model.Word
 
@@ -43,11 +49,26 @@ class DetailsFragment : Fragment() {
             transcriptionTextview.text = "[${it.meanings?.first()?.transcription.orEmpty()}]"
             descriptionTextview.text = it.meanings?.first()?.translation?.text.orEmpty()
             noteTextview.text = it.meanings?.first()?.translation?.note.orEmpty()
+            loadImage(imageUrl = it.meanings?.first()?.imageUrl)
+        }
+    }
+
+    private fun loadImage(imageUrl: String?) {
+        imageUrl?.let { url ->
+            Glide.with(this)
+                .load("https:$url")
+                .placeholder(R.drawable.ic_baseline_wallpaper_96)
+                .error(R.drawable.ic_baseline_broken_image_96)
+                .transition(DrawableTransitionOptions.withCrossFade(CROSS_FADE_DURATION))
+                .transform(MultiTransformation(CenterCrop(), RoundedCorners(CORNER_RADIUS)))
+                .into(binding.descriptionImageview)
         }
     }
 
     companion object {
         private const val ARG_WORD = "arg_word"
+        private const val CROSS_FADE_DURATION = 1000
+        private const val CORNER_RADIUS = 20
 
         fun newInstance(word: Word) = DetailsFragment().apply {
             arguments = bundleOf(ARG_WORD to word)
