@@ -13,6 +13,9 @@ interface WordDao {
     @Query("SELECT * FROM $WORD_TABLE_NAME")
     suspend fun getAll(): List<WordEntity>
 
+    @Query("SELECT * FROM $WORD_TABLE_NAME WHERE word LIKE :word")
+    suspend fun findAll(word: String): List<WordEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(word: WordEntity)
+    suspend fun insertAll(words: List<WordEntity>)
 }
