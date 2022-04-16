@@ -1,5 +1,5 @@
 package com.example.mylexicon.interactor
 
-interface Interactor<T> {
+interface INetworkInteractor<T> {
     suspend fun getData(word: String, fromRemoteSource: Boolean): T
 }

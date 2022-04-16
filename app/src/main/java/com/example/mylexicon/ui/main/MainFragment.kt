@@ -1,9 +1,7 @@
 package com.example.mylexicon.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentMainBinding
 import com.example.mylexicon.model.AppState
@@ -11,6 +9,7 @@ import com.example.mylexicon.model.Word
 import com.example.mylexicon.ui.base.BaseFragment
 import com.example.mylexicon.ui.details.DetailsFragment
 import com.example.mylexicon.ui.dialog.SearchDialogFragment
+import com.example.mylexicon.ui.history.HistoryFragment
 import com.example.mylexicon.ui.main.adapter.ItemClickListener
 import com.example.mylexicon.ui.main.adapter.MainAdapter
 import com.example.mylexicon.utils.hide
@@ -38,15 +37,27 @@ class MainFragment : BaseFragment<AppState>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): android.view.View {
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData()
         initView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_history -> runHistoryScreen()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {
@@ -69,6 +80,13 @@ class MainFragment : BaseFragment<AppState>() {
             is AppState.Success -> showResult(appState.data)
             is AppState.Error -> showErrorScreen(appState.error.message)
         }
+    }
+
+    private fun runHistoryScreen() {
+        parentFragmentManager.beginTransaction()
+            .add(R.id.main_container, HistoryFragment.newInstance(), "")
+            .addToBackStack("SearchFragment")
+            .commit()
     }
 
     private fun showSearchDialog() {

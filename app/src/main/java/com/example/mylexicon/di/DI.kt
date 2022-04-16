@@ -5,34 +5,41 @@ import com.example.mylexicon.datasource.DataSource
 import com.example.mylexicon.datasource.db.LexiconDatabase
 import com.example.mylexicon.datasource.db.LocalDataSource
 import com.example.mylexicon.datasource.network.RemoteDataSource
-import com.example.mylexicon.interactor.Interactor
-import com.example.mylexicon.interactor.MainInteractor
+import com.example.mylexicon.interactor.DBInteractor
+import com.example.mylexicon.interactor.IDBInteractor
+import com.example.mylexicon.interactor.INetworkInteractor
+import com.example.mylexicon.interactor.NetworkInteractor
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
 import com.example.mylexicon.repository.IRepository
 import com.example.mylexicon.repository.LocalRepository
 import com.example.mylexicon.repository.RemoteRepository
+import com.example.mylexicon.ui.history.HistoryViewModel
 import com.example.mylexicon.ui.main.MainViewModel
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 object DI {
-    private const val NAME_REMOTE = "Remote"
-    private const val NAME_LOCAL = "Local"
     private const val DB_NAME = "database.db"
 
     val appModule = module {
-        single { Room.databaseBuilder(get(), LexiconDatabase::class.java, DB_NAME).build() }
+        single { Room.databaseBuilder(androidApplication(), LexiconDatabase::class.java, DB_NAME).build() }
         single { get<LexiconDatabase>().wordDao() }
-        single<DataSource<List<Word>>>(named(NAME_LOCAL)) { LocalDataSource(get()) }
-        single<DataSource<List<Word>>>(named(NAME_REMOTE)) { RemoteDataSource() }
-        single<IRepository<List<Word>>> { RemoteRepository(remoteSource = get(named(NAME_REMOTE))) }
-        single<IRepository<List<Word>>> { LocalRepository(localSource = get(named(NAME_LOCAL))) }
+        single { LocalDataSource(get()) }
+        single { RemoteDataSource() }
+        single { LocalRepository(localSource = get()) }
+        single { RemoteRepository(remoteSource = get()) }
     }
 
     val mainModule = module {
-        factory<Interactor<AppState>> { MainInteractor(remoteRepository = get(), localRepository = get()) }
+        factory<INetworkInteractor<AppState>> { NetworkInteractor(remoteRepository = get(), localRepository = get()) }
         viewModel { MainViewModel(interactor = get()) }
+    }
+
+    val historyModule = module {
+        factory<IDBInteractor<AppState>> { DBInteractor(localRepository = get()) }
+        viewModel { HistoryViewModel(interactor = get()) }
     }
 }
