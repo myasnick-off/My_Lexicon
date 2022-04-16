@@ -2,15 +2,18 @@ package com.example.mylexicon.ui.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.ViewGroup
+import android.widget.SearchView
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentHistoryBinding
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.model.Word
 import com.example.mylexicon.ui.base.BaseFragment
 import com.example.mylexicon.ui.details.DetailsFragment
-import com.example.mylexicon.ui.main.adapter.ItemClickListener
-import com.example.mylexicon.ui.main.adapter.MainAdapter
+import com.example.mylexicon.ui.base.adapter.ItemClickListener
+import com.example.mylexicon.ui.base.adapter.MainAdapter
 import com.example.mylexicon.utils.hide
 import com.example.mylexicon.utils.show
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -60,6 +63,33 @@ class HistoryFragment : BaseFragment<AppState>() {
         historyRecyclerview.adapter = adapter
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_history, menu)
+        initSearchMenu(menu)
+    }
+
+    private fun initSearchMenu(menu: Menu) {
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.queryHint = "Search film..."
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(phrase: String?): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(phrase: String?): Boolean {
+                phrase?.let {
+                    viewModel.getData(phrase, false)
+                }
+                return true
+            }
+        })
+        searchView.setOnCloseListener {
+            viewModel.loadData()
+            false
+        }
+    }
+
     override fun renderData(appState: AppState) {
         when (appState) {
             AppState.Loading -> showLoading()
@@ -74,6 +104,7 @@ class HistoryFragment : BaseFragment<AppState>() {
         } else {
             showSuccess()
             adapter.submitList(words)
+            binding.historyRecyclerview.smoothScrollToPosition(0)
         }
     }
 

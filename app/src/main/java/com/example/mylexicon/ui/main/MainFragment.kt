@@ -10,8 +10,8 @@ import com.example.mylexicon.ui.base.BaseFragment
 import com.example.mylexicon.ui.details.DetailsFragment
 import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.history.HistoryFragment
-import com.example.mylexicon.ui.main.adapter.ItemClickListener
-import com.example.mylexicon.ui.main.adapter.MainAdapter
+import com.example.mylexicon.ui.base.adapter.ItemClickListener
+import com.example.mylexicon.ui.base.adapter.MainAdapter
 import com.example.mylexicon.utils.hide
 import com.example.mylexicon.utils.show
 import org.koin.androidx.viewmodel.ext.android.viewModel
