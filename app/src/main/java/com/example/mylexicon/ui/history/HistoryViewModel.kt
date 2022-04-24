@@ -1,13 +1,17 @@
-package com.example.mylexicon.ui.main
+package com.example.mylexicon.ui.history
 
-import com.example.mylexicon.interactor.INetworkInteractor
+import com.example.mylexicon.interactor.IDBInteractor
 import com.example.mylexicon.model.AppState
 import com.example.mylexicon.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(private val interactor: INetworkInteractor<AppState>) : BaseViewModel<AppState>() {
+class HistoryViewModel(private val interactor: IDBInteractor<AppState>) : BaseViewModel<AppState>() {
+
+    init {
+        loadData()
+    }
 
     override fun getData(word: String, isOnline: Boolean) {
         job?.cancel()
@@ -15,7 +19,19 @@ class MainViewModel(private val interactor: INetworkInteractor<AppState>) : Base
             mutableLiveData.value = AppState.Loading
 
             val appState = withContext(Dispatchers.IO) {
-                 interactor.getData(word, isOnline)
+                interactor.getData(word)
+            }
+            mutableLiveData.value = appState
+        }
+    }
+
+    fun loadData() {
+        job?.cancel()
+        job = viewModelScope.launch {
+            mutableLiveData.value = AppState.Loading
+
+            val appState = withContext(Dispatchers.IO) {
+                interactor.loadData()
             }
             mutableLiveData.value = appState
         }

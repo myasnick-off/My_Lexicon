@@ -7,4 +7,7 @@
     <string name="reload">Try again!</string>
     <string name="default_word">hi</string>
     <string name="empty_string" />
+    <string name="empty_list">History is empty!</string>
+    <string name="history">History</string>
+    <string name="search">Search</string>
 </resources>

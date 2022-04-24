@@ -1,4 +1,4 @@
-package com.example.mylexicon.ui.main.adapter
+package com.example.mylexicon.ui.base.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.mylexicon.model.Word

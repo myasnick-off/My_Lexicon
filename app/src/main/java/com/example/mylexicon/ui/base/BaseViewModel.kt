@@ -12,6 +12,7 @@ abstract class BaseViewModel<T : AppState> : ViewModel() {
     val liveData: LiveData<T>
         get() = mutableLiveData
 
+    protected var job: Job? = null
     protected val viewModelScope = CoroutineScope(
         Dispatchers.Main
                 + SupervisorJob()
@@ -24,6 +25,6 @@ abstract class BaseViewModel<T : AppState> : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        viewModelScope.cancel()
+        job?.cancel()
     }
 }

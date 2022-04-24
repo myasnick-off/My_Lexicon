@@ -1,4 +1,4 @@
-package com.example.mylexicon.ui.main.adapter
+package com.example.mylexicon.ui.base.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
