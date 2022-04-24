@@ -30,7 +30,7 @@ class HistoryFragment : BaseFragment<AppState>() {
         override fun onItemClick(item: Word) {
             parentFragmentManager.beginTransaction()
                 .add(R.id.main_container, DetailsFragment.newInstance(word = item))
-                .addToBackStack("")
+                .addToBackStack(null)
                 .commit()
         }
     })
@@ -72,7 +72,7 @@ class HistoryFragment : BaseFragment<AppState>() {
     private fun initSearchMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
-        searchView.queryHint = "Search film..."
+        searchView.queryHint = getString(R.string.search_word)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(phrase: String?): Boolean {
                 return false

@@ -28,7 +28,7 @@ class MainFragment : BaseFragment<AppState>() {
         override fun onItemClick(item: Word) {
             parentFragmentManager.beginTransaction()
                 .add(R.id.main_container, DetailsFragment.newInstance(word = item))
-                .addToBackStack("")
+                .addToBackStack(null)
                 .commit()
         }
     })

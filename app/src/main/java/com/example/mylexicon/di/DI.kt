@@ -27,7 +27,7 @@ object DI {
     val appModule = module {
         single { Room.databaseBuilder(androidApplication(), LexiconDatabase::class.java, DB_NAME).build() }
         single { get<LexiconDatabase>().wordDao() }
-        single { LocalDataSource(get()) }
+        single { LocalDataSource(wordDao = get()) }
         single { RemoteDataSource() }
         single { LocalRepository(localSource = get()) }
         single { RemoteRepository(remoteSource = get()) }
