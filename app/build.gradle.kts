@@ -1,19 +1,19 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
+    id(Plugins.ANDROID_APP)
+    id(Plugins.KOTLIN_ANDROID)
+    id(Plugins.KOTLIN_KAPT)
+    id(Plugins.KOTLIN_PARCELIZE)
 }
 
 android {
-    compileSdk = 31
+    compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
-        applicationId = "com.example.mylexicon"
-        minSdk = 21
-        targetSdk = 31
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Config.APP_ID
+        minSdk = Config.MIN_SDK
+        targetSdk = Config.TARGET_SDK
+        versionCode = Releases.VERSION_CODE
+        versionName = Releases.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -70,5 +70,5 @@ dependencies {
     kapt (Dependencies.ROOM_COMPILER)
 
     //modules
-    implementation(project(":Core"))
+    implementation(project(Modules.CORE_MODULE))
 }

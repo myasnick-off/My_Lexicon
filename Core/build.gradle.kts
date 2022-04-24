@@ -1,16 +1,16 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
+    id(Plugins.ANDROID_LIB)
+    id(Plugins.KOTLIN_ANDROID)
+    id(Plugins.KOTLIN_KAPT)
+    id(Plugins.KOTLIN_PARCELIZE)
 }
 
 android {
-    compileSdk = 31
+    compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 31
+        minSdk = Config.MIN_SDK
+        targetSdk = Config.TARGET_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
