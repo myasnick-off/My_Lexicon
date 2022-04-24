@@ -1,6 +1,6 @@
 package com.example.mylexicon.interactor
 
-import com.example.mylexicon.model.AppState
+import com.example.core.model.AppState
 import com.example.mylexicon.repository.LocalRepository
 
 class DBInteractor(

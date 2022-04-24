@@ -1,9 +1,9 @@
-package com.example.mylexicon.ui.base
+package com.example.core.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mylexicon.model.AppState
+import com.example.core.model.AppState
 import kotlinx.coroutines.*
 
 abstract class BaseViewModel<T : AppState> : ViewModel() {

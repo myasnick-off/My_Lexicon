@@ -68,4 +68,7 @@ dependencies {
     implementation (Dependencies.ROOM_RUNTIME)
     implementation (Dependencies.ROOM_KTX)
     kapt (Dependencies.ROOM_COMPILER)
+
+    //modules
+    implementation(project(":Core"))
 }

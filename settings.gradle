@@ -8,3 +8,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "My Lexicon"
 include ':app'
+include ':HistoryScreen'
+include ':Core'

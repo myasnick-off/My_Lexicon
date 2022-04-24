@@ -1,7 +1,7 @@
-package com.example.mylexicon.ui.base.adapter
+package com.example.core.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.mylexicon.model.Word
+import com.example.core.model.Word
 
 object WordItemCallback : DiffUtil.ItemCallback<Word>() {
 

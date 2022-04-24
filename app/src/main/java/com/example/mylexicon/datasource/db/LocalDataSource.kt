@@ -3,7 +3,7 @@ package com.example.mylexicon.datasource.db
 import com.example.mylexicon.datasource.DataSource
 import com.example.mylexicon.datasource.LocalSource
 import com.example.mylexicon.datasource.db.dao.WordDao
-import com.example.mylexicon.model.Word
+import com.example.core.model.Word
 import com.example.mylexicon.utils.wordEntityToModelConvert
 import com.example.mylexicon.utils.wordModelToEntityConvert
 

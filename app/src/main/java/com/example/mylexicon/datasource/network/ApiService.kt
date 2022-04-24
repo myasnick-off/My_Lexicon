@@ -1,6 +1,6 @@
 package com.example.mylexicon.datasource.network
 
-import com.example.mylexicon.model.Word
+import com.example.core.model.Word
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query

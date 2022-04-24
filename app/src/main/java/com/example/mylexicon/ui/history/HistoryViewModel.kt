@@ -1,8 +1,8 @@
 package com.example.mylexicon.ui.history
 
 import com.example.mylexicon.interactor.IDBInteractor
-import com.example.mylexicon.model.AppState
-import com.example.mylexicon.ui.base.BaseViewModel
+import com.example.core.model.AppState
+import com.example.core.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

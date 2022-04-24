@@ -1,12 +1,11 @@
-package com.example.mylexicon.ui.base
+package com.example.core.base
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.mylexicon.R
-import com.example.mylexicon.model.AppState
+import com.example.core.model.AppState
 
 abstract class BaseFragment<T: AppState>: Fragment() {
 
