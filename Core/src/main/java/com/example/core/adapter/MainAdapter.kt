@@ -1,11 +1,11 @@
-package com.example.mylexicon.ui.base.adapter
+package com.example.core.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mylexicon.databinding.FragmentMainItemBinding
-import com.example.mylexicon.model.Word
+import com.example.core.databinding.FragmentMainItemBinding
+import com.example.core.model.Word
 
 class MainAdapter(
     private val listener: ItemClickListener

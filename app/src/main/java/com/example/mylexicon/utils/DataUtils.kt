@@ -1,9 +1,9 @@
 package com.example.mylexicon.utils
 
 import com.example.mylexicon.datasource.db.enttities.WordEntity
-import com.example.mylexicon.model.Meaning2
-import com.example.mylexicon.model.Translation
-import com.example.mylexicon.model.Word
+import com.example.core.model.Meaning2
+import com.example.core.model.Translation
+import com.example.core.model.Word
 
 fun wordEntityToModelConvert(wordEntity: WordEntity): Word {
     return Word(

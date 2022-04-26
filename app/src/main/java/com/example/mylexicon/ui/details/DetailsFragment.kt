@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentDetailsBinding
-import com.example.mylexicon.model.Word
+import com.example.core.model.Word
 
 class DetailsFragment : Fragment() {
 

@@ -1,7 +1,7 @@
 package com.example.mylexicon.repository
 
 import com.example.mylexicon.datasource.db.LocalDataSource
-import com.example.mylexicon.model.Word
+import com.example.core.model.Word
 
 class LocalRepository(private val localSource: LocalDataSource): IRepository<List<Word>>, ILocalRepo {
 

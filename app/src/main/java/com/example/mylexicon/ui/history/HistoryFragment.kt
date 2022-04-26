@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentHistoryBinding
-import com.example.mylexicon.model.AppState
-import com.example.mylexicon.model.Word
-import com.example.mylexicon.ui.base.BaseFragment
+import com.example.core.model.AppState
+import com.example.core.model.Word
+import com.example.core.base.BaseFragment
 import com.example.mylexicon.ui.details.DetailsFragment
-import com.example.mylexicon.ui.base.adapter.ItemClickListener
-import com.example.mylexicon.ui.base.adapter.MainAdapter
+import com.example.core.adapter.ItemClickListener
+import com.example.core.adapter.MainAdapter
 import com.example.mylexicon.utils.hide
 import com.example.mylexicon.utils.show
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,7 +30,7 @@ class HistoryFragment : BaseFragment<AppState>() {
         override fun onItemClick(item: Word) {
             parentFragmentManager.beginTransaction()
                 .add(R.id.main_container, DetailsFragment.newInstance(word = item))
-                .addToBackStack("")
+                .addToBackStack(null)
                 .commit()
         }
     })
@@ -72,7 +72,7 @@ class HistoryFragment : BaseFragment<AppState>() {
     private fun initSearchMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
-        searchView.queryHint = "Search film..."
+        searchView.queryHint = getString(R.string.search_word)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(phrase: String?): Boolean {
                 return false

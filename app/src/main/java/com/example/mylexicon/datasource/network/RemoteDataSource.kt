@@ -1,10 +1,9 @@
 package com.example.mylexicon.datasource.network
 
 import com.example.mylexicon.datasource.DataSource
-import com.example.mylexicon.model.Word
+import com.example.core.model.Word
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -22,7 +21,6 @@ class RemoteDataSource : DataSource<List<Word>> {
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor())
         .build()
     }
 

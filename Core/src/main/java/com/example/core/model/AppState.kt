@@ -1,4 +1,4 @@
-package com.example.mylexicon.model
+package com.example.core.model
 
 sealed class AppState {
     object Loading : AppState()

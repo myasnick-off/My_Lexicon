@@ -1,4 +1,4 @@
-package com.example.mylexicon.model
+package com.example.core.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
