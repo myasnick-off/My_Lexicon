@@ -6,21 +6,25 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.ViewGroup
 import android.widget.SearchView
-import com.example.mylexicon.R
-import com.example.mylexicon.databinding.FragmentHistoryBinding
-import com.example.core.model.AppState
-import com.example.core.model.Word
-import com.example.core.base.BaseFragment
-import com.example.mylexicon.ui.details.DetailsFragment
 import com.example.core.adapter.ItemClickListener
 import com.example.core.adapter.MainAdapter
+import com.example.core.base.BaseFragment
+import com.example.core.model.AppState
+import com.example.core.model.Word
+import com.example.mylexicon.R
+import com.example.mylexicon.databinding.FragmentHistoryBinding
+import com.example.mylexicon.ui.details.DetailsFragment
 import com.example.mylexicon.utils.hide
 import com.example.mylexicon.utils.show
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinScopeComponent
+import org.koin.core.component.getOrCreateScope
+import org.koin.core.component.inject
+import org.koin.core.scope.Scope
 
-class HistoryFragment : BaseFragment<AppState>() {
+class HistoryFragment : BaseFragment<AppState>(), KoinScopeComponent {
 
-    override val viewModel: HistoryViewModel by viewModel()
+    override val scope: Scope by getOrCreateScope()
+    override val viewModel: HistoryViewModel by inject()
 
     private var _binding: FragmentHistoryBinding? = null
     private val binding: FragmentHistoryBinding
@@ -52,6 +56,7 @@ class HistoryFragment : BaseFragment<AppState>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        scope.close()
         _binding = null
     }
 

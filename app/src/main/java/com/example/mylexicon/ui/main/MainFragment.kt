@@ -2,23 +2,27 @@ package com.example.mylexicon.ui.main
 
 import android.os.Bundle
 import android.view.*
-import com.example.mylexicon.R
-import com.example.mylexicon.databinding.FragmentMainBinding
+import com.example.core.adapter.ItemClickListener
+import com.example.core.adapter.MainAdapter
+import com.example.core.base.BaseFragment
 import com.example.core.model.AppState
 import com.example.core.model.Word
-import com.example.core.base.BaseFragment
+import com.example.mylexicon.R
+import com.example.mylexicon.databinding.FragmentMainBinding
 import com.example.mylexicon.ui.details.DetailsFragment
 import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.history.HistoryFragment
-import com.example.core.adapter.ItemClickListener
-import com.example.core.adapter.MainAdapter
 import com.example.mylexicon.utils.hide
 import com.example.mylexicon.utils.show
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
+import org.koin.android.scope.getOrCreateScope
+import org.koin.core.component.KoinScopeComponent
+import org.koin.core.scope.Scope
 
-class MainFragment : BaseFragment<AppState>() {
+class MainFragment : BaseFragment<AppState>(), KoinScopeComponent {
 
-    override val viewModel: MainViewModel by viewModel()
+    override val scope: Scope by getOrCreateScope()
+    override val viewModel: MainViewModel by inject()
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
