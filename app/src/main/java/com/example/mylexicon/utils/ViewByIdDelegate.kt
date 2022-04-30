@@ -1,6 +1,5 @@
 package com.example.mylexicon.utils
 
-import android.app.Activity
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment

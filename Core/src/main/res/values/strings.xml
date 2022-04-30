@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">My Lexicon</string>
     <string name="button_search">Search</string>
-    <string name="new_word">New word...</string>
+    <string name="new_word">New word…</string>
     <string name="x">X</string>
     <string name="loading_error">Loading Error!</string>
     <string name="reload">Try again!</string>
@@ -10,5 +10,6 @@
     <string name="empty_list">History is empty!</string>
     <string name="history">History</string>
     <string name="search">Search</string>
-    <string name="search_word">Search word...</string>
+    <string name="search_word">Search word…</string>
+    <string name="message_device_is_offline">Network is lost! Try again later!</string>
 </resources>

@@ -104,7 +104,7 @@ class MainFragment : BaseFragment<AppState>(), KoinScopeComponent {
             setOnSearchClickListener(object :
                 SearchDialogFragment.OnSearchClickListener {
                 override fun onClick(searchWord: String) {
-                    viewModel.getData(searchWord, true)
+                    viewModel.getData(searchWord, isOnline)
                 }
             })
         }.show(parentFragmentManager, "")
