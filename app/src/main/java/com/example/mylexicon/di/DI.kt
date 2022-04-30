@@ -1,6 +1,7 @@
 package com.example.mylexicon.di
 
 import androidx.room.Room
+import com.example.core.ui.model.AppState
 import com.example.mylexicon.datasource.db.LexiconDatabase
 import com.example.mylexicon.datasource.db.LocalDataSource
 import com.example.mylexicon.datasource.network.RemoteDataSource
@@ -8,12 +9,10 @@ import com.example.mylexicon.interactor.DBInteractor
 import com.example.mylexicon.interactor.IDBInteractor
 import com.example.mylexicon.interactor.INetworkInteractor
 import com.example.mylexicon.interactor.NetworkInteractor
-import com.example.core.model.AppState
 import com.example.mylexicon.repository.LocalRepository
 import com.example.mylexicon.repository.RemoteRepository
 import com.example.mylexicon.ui.history.HistoryFragment
 import com.example.mylexicon.ui.history.HistoryViewModel
-import com.example.mylexicon.ui.main.MainActivity
 import com.example.mylexicon.ui.main.MainFragment
 import com.example.mylexicon.ui.main.MainViewModel
 import org.koin.android.ext.koin.androidApplication

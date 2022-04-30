@@ -1,7 +1,8 @@
 package com.example.mylexicon.interactor
 
-import com.example.core.model.AppState
+import com.example.core.ui.model.AppState
 import com.example.mylexicon.repository.LocalRepository
+import com.example.mylexicon.utils.wordModelToUiConvert
 
 class DBInteractor(
     private val localRepository: LocalRepository
@@ -13,7 +14,7 @@ class DBInteractor(
             if (data.isEmpty()) {
                 return AppState.Error(Throwable(EMPTY_DATA_MESSAGE))
             }
-            AppState.Success(data)
+            AppState.Success(data.map { wordModelToUiConvert(it) })
         } catch (ex: Exception) {
             AppState.Error(ex)
         }
@@ -25,7 +26,7 @@ class DBInteractor(
             if (data.isEmpty()) {
                 return AppState.Error(Throwable(EMPTY_DATA_MESSAGE))
             }
-            AppState.Success(data)
+            AppState.Success(data.map { wordModelToUiConvert(it) })
         } catch (ex: Exception) {
             AppState.Error(ex)
         }

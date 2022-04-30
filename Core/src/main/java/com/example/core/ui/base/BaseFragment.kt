@@ -1,4 +1,4 @@
-package com.example.core.base
+package com.example.core.ui.base
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,9 +6,8 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.core.R
-import com.example.core.model.AppState
+import com.example.core.ui.model.AppState
 import com.example.core.utils.OnlineLiveData
 
 abstract class BaseFragment<T: AppState>: Fragment() {

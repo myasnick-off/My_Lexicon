@@ -1,8 +1,8 @@
 package com.example.mylexicon.ui.main
 
+import com.example.core.ui.base.BaseViewModel
+import com.example.core.ui.model.AppState
 import com.example.mylexicon.interactor.INetworkInteractor
-import com.example.core.model.AppState
-import com.example.core.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

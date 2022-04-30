@@ -1,7 +1,7 @@
 package com.example.mylexicon.datasource.network
 
-import com.example.mylexicon.datasource.DataSource
 import com.example.core.model.Word
+import com.example.mylexicon.datasource.DataSource
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

@@ -1,9 +1,9 @@
-package com.example.core.base
+package com.example.core.ui.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.core.model.AppState
+import com.example.core.ui.model.AppState
 import kotlinx.coroutines.*
 
 abstract class BaseViewModel<T : AppState> : ViewModel() {

@@ -1,7 +1,7 @@
 package com.example.core.adapter
 
-import com.example.core.model.Word
+import com.example.core.ui.model.UiWord
 
 interface ItemClickListener {
-    fun onItemClick(item: Word)
+    fun onItemClick(item: UiWord)
 }

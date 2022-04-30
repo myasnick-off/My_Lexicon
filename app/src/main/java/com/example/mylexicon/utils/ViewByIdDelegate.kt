@@ -3,7 +3,6 @@ package com.example.mylexicon.utils
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import java.lang.IllegalStateException
 import java.lang.ref.WeakReference
 import kotlin.reflect.KProperty
 
