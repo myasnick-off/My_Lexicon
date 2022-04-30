@@ -2,6 +2,7 @@ package com.example.mylexicon.ui.main
 
 import android.os.Bundle
 import android.view.*
+import androidx.recyclerview.widget.RecyclerView
 import com.example.core.adapter.ItemClickListener
 import com.example.core.adapter.MainAdapter
 import com.example.core.base.BaseFragment
@@ -14,6 +15,8 @@ import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.history.HistoryFragment
 import com.example.mylexicon.utils.hide
 import com.example.mylexicon.utils.show
+import com.example.mylexicon.utils.viewById
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.getOrCreateScope
 import org.koin.core.component.KoinScopeComponent
@@ -23,6 +26,9 @@ class MainFragment : BaseFragment<AppState>(), KoinScopeComponent {
 
     override val scope: Scope by getOrCreateScope()
     override val viewModel: MainViewModel by inject()
+
+    private val mainRecyclerView by viewById<RecyclerView>(R.id.main_recyclerview)
+    private val searchFab by viewById<FloatingActionButton>(R.id.search_fab)
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
@@ -73,8 +79,8 @@ class MainFragment : BaseFragment<AppState>(), KoinScopeComponent {
         viewModel.liveData.observe( viewLifecycleOwner, ::renderData)
     }
 
-    private fun initView() = with(binding) {
-        mainRecyclerview.adapter = adapter
+    private fun initView() {
+        mainRecyclerView.adapter = adapter
         searchFab.setOnClickListener { showSearchDialog() }
     }
 
