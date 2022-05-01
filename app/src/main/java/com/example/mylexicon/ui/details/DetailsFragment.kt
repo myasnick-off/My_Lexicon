@@ -12,9 +12,9 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.core.ui.model.UiWord
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentDetailsBinding
-import com.example.core.model.Word
 
 class DetailsFragment : Fragment() {
 
@@ -22,7 +22,7 @@ class DetailsFragment : Fragment() {
     private val binding: FragmentDetailsBinding
         get() = _binding!!
 
-    private val word: Word? by lazy {
+    private val word: UiWord? by lazy {
         requireArguments().getParcelable(ARG_WORD)
     }
 
@@ -52,11 +52,11 @@ class DetailsFragment : Fragment() {
 
     private fun initView() = with(binding) {
         word?.let {
-            headerTextview.text = it.text
-            transcriptionTextview.text = "[${it.meanings?.first()?.transcription.orEmpty()}]"
-            descriptionTextview.text = it.meanings?.first()?.translation?.text.orEmpty()
-            noteTextview.text = it.meanings?.first()?.translation?.note.orEmpty()
-            loadImage(imageUrl = it.meanings?.first()?.imageUrl)
+            headerTextview.text = it.word
+            transcriptionTextview.text = "[${it.transcription}]"
+            descriptionTextview.text = it.translation
+            noteTextview.text = it.note
+            loadImage(imageUrl = it.imageUrl)
         }
     }
 
@@ -77,7 +77,7 @@ class DetailsFragment : Fragment() {
         private const val CROSS_FADE_DURATION = 1000
         private const val CORNER_RADIUS = 20
 
-        fun newInstance(word: Word) = DetailsFragment().apply {
+        fun newInstance(word: UiWord) = DetailsFragment().apply {
             arguments = bundleOf(ARG_WORD to word)
         }
     }

@@ -1,7 +1,7 @@
 package com.example.mylexicon.repository
 
-import com.example.mylexicon.datasource.network.RemoteDataSource
 import com.example.core.model.Word
+import com.example.mylexicon.datasource.network.RemoteDataSource
 
 class RemoteRepository(private val remoteSource: RemoteDataSource) : IRepository<List<Word>> {
 

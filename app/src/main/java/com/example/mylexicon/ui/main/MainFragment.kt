@@ -2,30 +2,40 @@ package com.example.mylexicon.ui.main
 
 import android.os.Bundle
 import android.view.*
+import androidx.recyclerview.widget.RecyclerView
+import com.example.core.adapter.ItemClickListener
+import com.example.core.adapter.MainAdapter
+import com.example.core.ui.base.BaseFragment
+import com.example.core.ui.model.AppState
+import com.example.core.ui.model.UiWord
 import com.example.mylexicon.R
 import com.example.mylexicon.databinding.FragmentMainBinding
-import com.example.core.model.AppState
-import com.example.core.model.Word
-import com.example.core.base.BaseFragment
 import com.example.mylexicon.ui.details.DetailsFragment
 import com.example.mylexicon.ui.dialog.SearchDialogFragment
 import com.example.mylexicon.ui.history.HistoryFragment
-import com.example.core.adapter.ItemClickListener
-import com.example.core.adapter.MainAdapter
 import com.example.mylexicon.utils.hide
 import com.example.mylexicon.utils.show
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.example.mylexicon.utils.viewById
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.koin.android.ext.android.inject
+import org.koin.android.scope.getOrCreateScope
+import org.koin.core.component.KoinScopeComponent
+import org.koin.core.scope.Scope
 
-class MainFragment : BaseFragment<AppState>() {
+class MainFragment : BaseFragment<AppState>(), KoinScopeComponent {
 
-    override val viewModel: MainViewModel by viewModel()
+    override val scope: Scope by getOrCreateScope()
+    override val viewModel: MainViewModel by inject()
+
+    private val mainRecyclerView by viewById<RecyclerView>(R.id.main_recyclerview)
+    private val searchFab by viewById<FloatingActionButton>(R.id.search_fab)
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
         get() = _binding!!
 
     private val adapter = MainAdapter(object : ItemClickListener {
-        override fun onItemClick(item: Word) {
+        override fun onItemClick(item: UiWord) {
             parentFragmentManager.beginTransaction()
                 .add(R.id.main_container, DetailsFragment.newInstance(word = item))
                 .addToBackStack(null)
@@ -69,8 +79,8 @@ class MainFragment : BaseFragment<AppState>() {
         viewModel.liveData.observe( viewLifecycleOwner, ::renderData)
     }
 
-    private fun initView() = with(binding) {
-        mainRecyclerview.adapter = adapter
+    private fun initView() {
+        mainRecyclerView.adapter = adapter
         searchFab.setOnClickListener { showSearchDialog() }
     }
 
@@ -94,13 +104,13 @@ class MainFragment : BaseFragment<AppState>() {
             setOnSearchClickListener(object :
                 SearchDialogFragment.OnSearchClickListener {
                 override fun onClick(searchWord: String) {
-                    viewModel.getData(searchWord, true)
+                    viewModel.getData(searchWord, isOnline)
                 }
             })
         }.show(parentFragmentManager, "")
     }
 
-    private fun showResult(words: List<Word>?) {
+    private fun showResult(words: List<UiWord>?) {
         if (words == null || words.isEmpty()) {
             showErrorScreen(getString(R.string.loading_error))
         } else {

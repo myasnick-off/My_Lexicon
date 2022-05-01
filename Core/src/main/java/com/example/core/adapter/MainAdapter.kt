@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.databinding.FragmentMainItemBinding
-import com.example.core.model.Word
+import com.example.core.ui.model.UiWord
 
 class MainAdapter(
     private val listener: ItemClickListener
-    ): ListAdapter<Word, MainAdapter.WordViewHolder>(WordItemCallback) {
+    ): ListAdapter<UiWord, MainAdapter.WordViewHolder>(WordItemCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         WordViewHolder(
@@ -23,9 +23,9 @@ class MainAdapter(
     inner class WordViewHolder(
         private val binding: FragmentMainItemBinding
         ): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Word) = with(binding) {
-            headerTextview.text = item.text
-            descriptionTextview.text = item.meanings?.first()?.translation?.text.orEmpty()
+        fun bind(item: UiWord) = with(binding) {
+            headerTextview.text = item.word
+            descriptionTextview.text = item.translation
             itemView.setOnClickListener { listener.onItemClick(item) }
         }
     }

@@ -1,8 +1,9 @@
 package com.example.mylexicon.interactor
 
-import com.example.core.model.AppState
+import com.example.core.ui.model.AppState
 import com.example.mylexicon.repository.LocalRepository
 import com.example.mylexicon.repository.RemoteRepository
+import com.example.mylexicon.utils.wordModelToUiConvert
 
 class NetworkInteractor(
     private val remoteRepository: RemoteRepository,
@@ -16,7 +17,7 @@ class NetworkInteractor(
                 return AppState.Error(Throwable(EMPTY_DATA_MESSAGE))
             }
             if (fromRemoteSource) localRepository.saveData(data)
-            AppState.Success(data)
+            AppState.Success((data.map { wordModelToUiConvert(it) }))
         } catch (ex: Exception) {
             AppState.Error(ex)
         }
