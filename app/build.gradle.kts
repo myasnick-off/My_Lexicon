@@ -69,6 +69,9 @@ dependencies {
     implementation (Dependencies.ROOM_KTX)
     kapt (Dependencies.ROOM_COMPILER)
 
+    //Splash
+    implementation(Dependencies.SPLASH_SCREEN)
+
     //modules
     implementation(project(Modules.CORE_MODULE))
 }
