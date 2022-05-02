@@ -10,6 +10,7 @@ import android.graphics.Bitmap
 import android.widget.RemoteViews
 import com.bumptech.glide.Glide
 import com.example.core.ui.model.AppState
+import com.example.core.ui.model.UiWord
 import com.example.mylexicon.R
 import com.example.mylexicon.interactor.IDBInteractor
 import kotlinx.coroutines.CoroutineScope
@@ -51,7 +52,6 @@ class AppWidget: AppWidgetProvider(), KoinComponent {
         }
     }
 
-
     private fun getRandomWordFromBD(
         context: Context,
         remoteViews: RemoteViews,
@@ -64,15 +64,21 @@ class AppWidget: AppWidgetProvider(), KoinComponent {
                 if (state is AppState.Success) {
                     state.data?.let { data ->
                         val word = data[(data.indices).random()]
-                        setTextViewText(R.id.widget_header, word.word)
-                        setTextViewText(R.id.widget_transcription, "[${word.transcription}]")
-                        setTextViewText(R.id.widget_description, word.translation)
-                        word.imageUrl?.let { url ->
-                            setImageViewBitmap(R.id.widget_image, getBitmapFromUrl(url, context))
-                        }
+                        renderView(word, context, this@apply)
                         appWidgetManager.updateAppWidget(componentName, this@apply)
                     }
                 }
+            }
+        }
+    }
+
+    private fun renderView(data: UiWord, context: Context, remoteViews: RemoteViews) {
+        remoteViews.apply{
+            setTextViewText(R.id.widget_header, data.word)
+            setTextViewText(R.id.widget_transcription, "[${data.transcription}]")
+            setTextViewText(R.id.widget_description, data.translation)
+            data.imageUrl?.let { url ->
+                setImageViewBitmap(R.id.widget_image, getBitmapFromUrl(url, context))
             }
         }
     }
