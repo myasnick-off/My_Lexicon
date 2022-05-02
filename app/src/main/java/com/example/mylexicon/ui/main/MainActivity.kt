@@ -28,11 +28,11 @@ class MainActivity : AppCompatActivity() {
                 ObjectAnimator.ofFloat(
                     splashProvider.view,
                     View.TRANSLATION_X,
-                    0f,
+                    INITIAL_POSITION_X,
                     splashProvider.view.width.toFloat()
                 ).apply {
                     interpolator = AnticipateInterpolator()
-                    duration = 500
+                    duration = SPLASH_DURATION
                     doOnEnd {
                         splashProvider.remove()
                     }
@@ -44,5 +44,10 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MainFragment.newInstance(), "")
             .commit()
+    }
+
+    companion object {
+        private const val INITIAL_POSITION_X = 0f
+        private const val SPLASH_DURATION = 500L
     }
 }
