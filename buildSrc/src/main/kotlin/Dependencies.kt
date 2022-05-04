@@ -42,6 +42,8 @@ object Versions {
     const val GLIDE_COMPILER_VERSION = "4.11.0"
     //Room
     const val ROOM_VERSION = "2.4.2"
+    //Splash
+    const val SPLASH_VERSION = "1.0.0-beta02"
 }
 
 object Dependencies {
@@ -69,4 +71,7 @@ object Dependencies {
     const val ROOM_RUNTIME = "androidx.room:room-runtime:${Versions.ROOM_VERSION}"
     const val ROOM_KTX = "androidx.room:room-ktx:${Versions.ROOM_VERSION}"
     const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM_VERSION}"
+
+    //splash
+    const val SPLASH_SCREEN = "androidx.core:core-splashscreen:${Versions.SPLASH_VERSION}"
 }

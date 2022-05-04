@@ -45,4 +45,8 @@ object DI {
             viewModel { HistoryViewModel(interactor = get()) }
         }
     }
+
+    val widgetModule = module {
+        factory<IDBInteractor<AppState>> { DBInteractor(localRepository = get()) }
+    }
 }
