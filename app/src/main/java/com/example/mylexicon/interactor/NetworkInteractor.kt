@@ -3,11 +3,12 @@ package com.example.mylexicon.interactor
 import com.example.core.ui.model.AppState
 import com.example.mylexicon.repository.LocalRepository
 import com.example.mylexicon.repository.RemoteRepository
-import com.example.mylexicon.utils.wordModelToUiConvert
+import com.example.mylexicon.utils.ModelsMapper
 
 class NetworkInteractor(
     private val remoteRepository: RemoteRepository,
-    private val localRepository: LocalRepository
+    private val localRepository: LocalRepository,
+    private val mapper: ModelsMapper
 ) : INetworkInteractor<AppState> {
 
     override suspend fun getData(word: String, fromRemoteSource: Boolean): AppState {
@@ -17,7 +18,7 @@ class NetworkInteractor(
                 return AppState.Error(Throwable(EMPTY_DATA_MESSAGE))
             }
             if (fromRemoteSource) localRepository.saveData(data)
-            AppState.Success((data.map { wordModelToUiConvert(it) }))
+            AppState.Success((data.map { mapper.wordModelToUiConvert(it) }))
         } catch (ex: Exception) {
             AppState.Error(ex)
         }

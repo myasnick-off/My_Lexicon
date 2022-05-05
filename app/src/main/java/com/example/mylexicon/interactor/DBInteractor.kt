@@ -2,10 +2,11 @@ package com.example.mylexicon.interactor
 
 import com.example.core.ui.model.AppState
 import com.example.mylexicon.repository.LocalRepository
-import com.example.mylexicon.utils.wordModelToUiConvert
+import com.example.mylexicon.utils.ModelsMapper
 
 class DBInteractor(
-    private val localRepository: LocalRepository
+    private val localRepository: LocalRepository,
+    private val mapper: ModelsMapper
 ) : IDBInteractor<AppState> {
 
     override suspend fun getData(word: String): AppState {
@@ -14,7 +15,7 @@ class DBInteractor(
             if (data.isEmpty()) {
                 return AppState.Error(Throwable(EMPTY_DATA_MESSAGE))
             }
-            AppState.Success(data.map { wordModelToUiConvert(it) })
+            AppState.Success(data.map { mapper.wordModelToUiConvert(it) })
         } catch (ex: Exception) {
             AppState.Error(ex)
         }
@@ -26,7 +27,7 @@ class DBInteractor(
             if (data.isEmpty()) {
                 return AppState.Error(Throwable(EMPTY_DATA_MESSAGE))
             }
-            AppState.Success(data.map { wordModelToUiConvert(it) })
+            AppState.Success(data.map { mapper.wordModelToUiConvert(it) })
         } catch (ex: Exception) {
             AppState.Error(ex)
         }

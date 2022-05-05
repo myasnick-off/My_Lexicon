@@ -15,6 +15,7 @@ import com.example.mylexicon.ui.history.HistoryFragment
 import com.example.mylexicon.ui.history.HistoryViewModel
 import com.example.mylexicon.ui.main.MainFragment
 import com.example.mylexicon.ui.main.MainViewModel
+import com.example.mylexicon.utils.ModelsMapper
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -26,27 +27,28 @@ object DI {
     val appModule = module {
         single { Room.databaseBuilder(androidApplication(), LexiconDatabase::class.java, DB_NAME).build() }
         single { get<LexiconDatabase>().wordDao() }
-        single { LocalDataSource(wordDao = get()) }
+        single { LocalDataSource(wordDao = get(), mapper = get()) }
         single { RemoteDataSource() }
         single { LocalRepository(localSource = get()) }
         single { RemoteRepository(remoteSource = get()) }
+        single { ModelsMapper() }
     }
 
     val mainModule = module {
         scope(named<MainFragment>()) {
-            scoped<INetworkInteractor<AppState>> { NetworkInteractor(remoteRepository = get(), localRepository = get()) }
+            scoped<INetworkInteractor<AppState>> { NetworkInteractor(remoteRepository = get(), localRepository = get(), mapper = get()) }
             viewModel { MainViewModel(interactor = get()) }
         }
     }
 
     val historyModule = module {
         scope(named<HistoryFragment>()) {
-            scoped<IDBInteractor<AppState>> { DBInteractor(localRepository = get()) }
+            scoped<IDBInteractor<AppState>> { DBInteractor(localRepository = get(), mapper = get()) }
             viewModel { HistoryViewModel(interactor = get()) }
         }
     }
 
     val widgetModule = module {
-        factory<IDBInteractor<AppState>> { DBInteractor(localRepository = get()) }
+        factory<IDBInteractor<AppState>> { DBInteractor(localRepository = get(), mapper = get()) }
     }
 }
