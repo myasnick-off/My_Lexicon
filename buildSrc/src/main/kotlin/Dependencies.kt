@@ -51,7 +51,7 @@ object Dependencies {
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT_VERSION}"
     const val ANDROID_MATERIAL = "com.google.android.material:material:${Versions.ANDROID_MATERIAL_VERSION}"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT_VERSION}"
-    const val JUNIT = "junit:junit:"
+    const val JUNIT = "junit:junit:4+"
     const val TEST_JUNIT = "androidx.test.ext:junit:${Versions.TEST_JUNIT_VERSION}"
     const val TEXT_ESPRESSO = "androidx.test.espresso:espresso-core:${Versions.TEST_ESPRESSO_VERSION}"
     // Retrofit
